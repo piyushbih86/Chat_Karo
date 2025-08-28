@@ -20,7 +20,7 @@ const ChatContainer = () => {
   const { authUser } = useAuthStore();
   const messageEndRef = useRef(null);
 
-  console.log("ChatContainer render:", { selectedUser, messages, isMessagesLoading });
+
 
   useEffect(() => {
     if (selectedUser && selectedUser._id) {

@@ -1,5 +1,6 @@
 import User from '../models/user.model.js';
 import Message from '../models/message.model.js';
+import { io } from '../lib/socket.js';
 
 export const getUsersForSidebar=async(req,res)=>{
     try {
@@ -51,6 +52,10 @@ export const sendMessage=async(req,res)=>{
         image:imageUrl
     });
     const savedMessage=await newMessage.save();
+    
+    // Emit socket event for real-time message delivery
+    io.emit("newMessage", savedMessage);
+    
     return res.status(201).json(savedMessage);
    }
    catch(error){
