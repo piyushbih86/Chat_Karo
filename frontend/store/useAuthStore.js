@@ -28,5 +28,17 @@ export const useAuthStore = create((set) => ({
         } finally {
             set({ isSigningUp: false });
         }
+    },
+
+    logout: async()=>{
+        try{
+            await axiosInstance.post("/auth/logout");
+            set({authUser:null});
+            toast.success("Logged out successfully");
+        }
+        catch(error){
+            console.log("Error in logout frontend:", error);
+            toast.error("Something went wrong");
+        }
     }
 }))
