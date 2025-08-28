@@ -108,3 +108,23 @@ export const updateProfile=async (req,res)=>{
         return res.status(500).json({ error: "Internal Server Error" });
     }
 }
+
+export const checkAuth = (req, res) => {
+    try {
+        if (req.user) {
+            return res.status(200).json({
+                _id: req.user._id,
+                fullName: req.user.fullName,
+                email: req.user.email,
+                profilePic: req.user.profilePic,
+                createdAt: req.user.createdAt,
+                updatedAt: req.user.updatedAt
+            });
+        } else {
+            return res.status(401).json({ error: "Not authorized" });
+        }
+    } catch (error) {
+        console.log("Error in checkAuth controller:", error.message);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+}
